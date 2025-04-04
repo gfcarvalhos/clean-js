@@ -6,6 +6,7 @@ describe('Cadastrar usuario UseCase', function () {
   const usuariosRepository = {
     cadastrar: jest.fn(),
     existePorCpf: jest.fn(),
+    existePorEmail: jest.fn(),
   };
 
   test('Deve cadastrar um usuario', async function () {
@@ -38,7 +39,7 @@ describe('Cadastrar usuario UseCase', function () {
     );
   });
 
-  test('Deve um throw AppError se já existir usuário cadastrado com o mesmo CPF', async function () {
+  test('Deve retornar um throw AppError se já existir usuário cadastrado com o mesmo CPF', async function () {
     usuariosRepository.existePorCpf.mockResolvedValue(true);
     const usuarioDTO = {
       nome_completo: 'nome_valido',
@@ -54,10 +55,34 @@ describe('Cadastrar usuario UseCase', function () {
     const output = await sut(usuarioDTO);
 
     expect(output.right).toBeNull();
-    expect(output.left).toEqual(Either.CpfJaCadastrado('CPF'));
+    expect(output.left).toEqual(Either.ValorJaCadastrado(usuarioDTO.CPF));
     expect(usuariosRepository.existePorCpf).toHaveBeenCalledWith(
       usuarioDTO.CPF,
     );
     expect(usuariosRepository.existePorCpf).toHaveBeenCalledTimes(1);
+  });
+
+  test('Deve retornar um throw AppError se já existir usuário cadastrado com o mesmo email', async function () {
+    usuariosRepository.existePorCpf.mockResolvedValue(false);
+    usuariosRepository.existePorEmail.mockResolvedValue(true);
+    const usuarioDTO = {
+      nome_completo: 'nome_valido',
+      CPF: 'CPF_valido',
+      telefone: 'telefone_valido',
+      endereco: 'endereco_valido',
+      email: 'email_ja_existe',
+    };
+
+    const sut = cadastrarUsuarioUsecase({
+      usuariosRepository,
+    });
+    const output = await sut(usuarioDTO);
+
+    expect(output.right).toBeNull();
+    expect(output.left).toEqual(Either.ValorJaCadastrado(usuarioDTO.email));
+    expect(usuariosRepository.existePorEmail).toHaveBeenCalledWith(
+      usuarioDTO.email,
+    );
+    expect(usuariosRepository.existePorEmail).toHaveBeenCalledTimes(1);
   });
 });

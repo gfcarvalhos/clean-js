@@ -15,7 +15,7 @@ module.exports = class Either {
     return new Either(null, right);
   }
 
-  static CpfJaCadastrado(valor) {
+  static ValorJaCadastrado(valor) {
     return { message: `${valor} já cadastrado.` };
   }
 };
