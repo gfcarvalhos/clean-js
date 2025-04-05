@@ -26,7 +26,7 @@
 [x] - A data de retorno não pode ser menor que a data de saída
 [x] - Um usuário não pode estar com mais de um livro com o mesmo ISBN ao mesmo tempo
 [x] - Um usuário pode estar com mais de um livro com ISBN diferentes ao mesmo tempo
-[] - Ao cadastrar um empréstimo, será enviado um email automaticamente informando o nome do livro, nome do usuário, CPF, a data de saída e a data de retorno
+[x] - Ao cadastrar um empréstimo, será enviado um email automaticamente informando o nome do livro, nome do usuário, CPF, a data de saída e a data de retorno
 
 [] Devolver o livro emprestado sem multa
 [] - Caso o usuário tenha atrasado, será gerada uma multa fixa de R$ 10,00
@@ -37,17 +37,18 @@
 
 ## UsuariosRepository
 
-[X] cadastrar: ({nome_completo, CPF, telefone, endereco, email}) => Promise<void>
-[x] existePorCpf(CPF) => Promise<boolean>
-[x] existePorEmail(email) => Promise<boolean>
+[] cadastrar: ({nome_completo, CPF, telefone, endereco, email}) => Promise<void>
+[] existePorCpf:(CPF) => Promise<boolean>
+[] existePorEmail:(email) => Promise<boolean>
 
 ## LivrosRepository
 
-[x] cadastrar: { nome, quantidade, autor, genero, ISBN } => Promise<void>
-[x] existePorISBN(ISBN) => Promise<boolean>
-[x] buscarPorNomeOuISBN(valor) => Promise<Array<Livros>>
+[] cadastrar: ({ nome, quantidade, autor, genero, ISBN }) => Promise<void>
+[] existePorISBN:(ISBN) => Promise<boolean>
+[] buscarPorNomeOuISBN(valor) => Promise<Array<Livros>>
 
 ## EmprestimosRepository
 
-[x] emprestar: {usuario_id, livro_id, data_saida, data_retorno} => Promise<void>
-[x] existeLivroEmprestadoComMesmoISBN({ usuario_id, livro_id,}) => Promise<boolean>
+[] emprestar: {usuario_id, livro_id, data_saida, data_retorno} => Promise<void>
+[] existeLivroEmprestadoComMesmoISBN:({ usuario_id, livro_id,}) => Promise<boolean>
+[] buscarEmprestimoComLivroComUsuarioPorID:(id) => Promise<Emprestimo & {Livro: {nome}, Usuario: {nome_completo, CPF, email}}>
