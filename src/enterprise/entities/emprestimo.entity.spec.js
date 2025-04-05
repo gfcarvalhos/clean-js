@@ -9,4 +9,13 @@ describe('Emprestimos Entity', function () {
 
     expect(resultado).toBe('Multa por atraso: R$ 0');
   });
+
+  test('Calcular multa com atraso', function () {
+    const resultado = emprestimoEntity.calcularMulta({
+      data_retorno: '2025-04-05',
+      data_devolucao: '2025-04-06',
+    });
+
+    expect(resultado).toBe('Multa por atraso: R$ 10,00');
+  });
 });
