@@ -17,7 +17,7 @@
 [x] - Retornar um usuário ou vazio
 
 [x] Cadastrar um novo livro
-[] - ISBN deve ser único
+[x] - ISBN deve ser único
 
 [] Buscar um livro por nome ou ISBN
 [] - Retornar os livros ou vazio
@@ -44,3 +44,4 @@
 ## LivrosRepository
 
 [x] cadastrar: { nome, quantidade, autor, genero, ISBN } => Promise<void>
+[x] existePorISBN(ISBN) => Promise<boolean>
