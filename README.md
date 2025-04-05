@@ -20,14 +20,18 @@ erDiagram
 
     LIVRO {
         int id
-        string titulo
+        string nome
         string autor
-        int exemplares
+        int quantidade
+        string genero
+        string ISBN
     }
 
     EMPRESTIMO {
         int id
-        date data_emprestimo
+        date data_retorno
+        date data_devolucao
+        date data_saida
         date data_devolucao
         int usuario_id
         int livro_id
