@@ -1,3 +1,4 @@
+const { AppError } = require('../shared/errors');
 const buscarUsuarioPorCpfUsecase = require('./buscar-usuario-por-cpf.usecase');
 
 describe('Busca usuario por CPF UseCase', function () {
@@ -37,5 +38,18 @@ describe('Busca usuario por CPF UseCase', function () {
     expect(output.right).toBeNull();
     expect(usuariosRepository.buscarporCpf).toHaveBeenCalledWith(cpfDTO.CPF);
     expect(usuariosRepository.buscarporCpf).toHaveBeenCalledTimes(1);
+  });
+
+  test('Deve retornar um throw AppError se o usuarioRepository não for fornecido', async function () {
+    expect(() => buscarUsuarioPorCpfUsecase({})).toThrow(
+      new AppError(AppError.dependencias),
+    );
+  });
+
+  test('Deve retornar um throw AppError se o CPF não for fornecido', async function () {
+    const sut = buscarUsuarioPorCpfUsecase({ usuariosRepository });
+    await expect(() => sut({})).rejects.toThrow(
+      new AppError(AppError.parametrosObrigatoriosAusentes),
+    );
   });
 });
