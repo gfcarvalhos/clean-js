@@ -1,3 +1,4 @@
+const { AppError } = require('../shared/errors');
 const devolverLivroUsecase = require('./devolver-livro.usecase');
 
 describe('Desvolver Livro UseCase', function () {
@@ -40,5 +41,18 @@ describe('Desvolver Livro UseCase', function () {
       devolverLivroDTO,
     );
     expect(emprestimosRepository.devolver).toHaveBeenCalledTimes(1);
+  });
+
+  test('Deve retornar um throw AppError se o emprestimosRepository não for fornecido', async function () {
+    expect(() => devolverLivroUsecase({})).toThrow(
+      new AppError(AppError.dependencias),
+    );
+  });
+
+  test('Deve retornar um throw AppError se campo obrigatório não for fornecido', async function () {
+    const sut = devolverLivroUsecase({ emprestimosRepository });
+    await expect(() => sut({})).rejects.toThrow(
+      new AppError(AppError.parametrosObrigatoriosAusentes),
+    );
   });
 });
