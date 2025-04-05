@@ -29,8 +29,6 @@ erDiagram
 
     EMPRESTIMO {
         int id
-        date data_retorno
-        date data_devolucao
         date data_saida
         date data_devolucao
         int usuario_id
