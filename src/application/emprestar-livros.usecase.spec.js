@@ -1,5 +1,5 @@
-const { Either } = require('../shared/errors');
-const emprestarLivrosUseCase = require('./emprestar-livros.usecase');
+const { Either, AppError } = require('../shared/errors');
+const emprestarLivroUseCase = require('./emprestar-livros.usecase');
 describe('Emprestar livro UseCase', function () {
   const emprestimosRepository = {
     emprestar: jest.fn(),
@@ -13,7 +13,7 @@ describe('Emprestar livro UseCase', function () {
       data_retorno: new Date('2025-04-05'),
     };
 
-    const sut = emprestarLivrosUseCase({ emprestimosRepository });
+    const sut = emprestarLivroUseCase({ emprestimosRepository });
     const output = await sut(emprestimoDTO);
 
     expect(output.right).toBeNull;
@@ -29,7 +29,7 @@ describe('Emprestar livro UseCase', function () {
       data_retorno: new Date('2025-04-04'),
     };
 
-    const sut = emprestarLivrosUseCase({ emprestimosRepository });
+    const sut = emprestarLivroUseCase({ emprestimosRepository });
     const output = await sut(emprestimoDTO);
 
     expect(output.left).toBe(Either.dataRetornoMenorQueDataSaida);
@@ -46,7 +46,7 @@ describe('Emprestar livro UseCase', function () {
       true,
     );
 
-    const sut = emprestarLivrosUseCase({ emprestimosRepository });
+    const sut = emprestarLivroUseCase({ emprestimosRepository });
     const output = await sut(emprestimoDTO);
 
     expect(output.left).toBe(Either.livroComISBNJaEmprestadoPendente);
@@ -56,5 +56,18 @@ describe('Emprestar livro UseCase', function () {
       livro_id: emprestimoDTO.livro_id,
       usuario_id: emprestimoDTO.usuario_id,
     });
+  });
+
+  test('Deve retornar um throw AppError se o emprestimosRepository não for fornecido', async function () {
+    expect(() => emprestarLivroUseCase({})).toThrow(
+      new AppError(AppError.dependencias),
+    );
+  });
+
+  test('Deve retornar um throw AppError se campo obrigatório não for fornecido', async function () {
+    const sut = emprestarLivroUseCase({ emprestimosRepository });
+    await expect(() => sut({})).rejects.toThrow(
+      new AppError(AppError.parametrosObrigatoriosAusentes),
+    );
   });
 });

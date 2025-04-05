@@ -1,5 +1,5 @@
 const { AppError } = require('../shared/errors');
-const buscaLivroPorNomeOuISBNUseCase = require('./busca-livro-por-nome-ou-isbn.usecase');
+const buscarLivroPorNomeOuISBNUseCase = require('./buscar-livro-por-nome-ou-isbn.usecase');
 describe('Busca livro por nome ou ISBN usecase', function () {
   const livrosRepository = {
     buscarPorNomeOuISBN: jest.fn(),
@@ -20,7 +20,7 @@ describe('Busca livro por nome ou ISBN usecase', function () {
     ];
     livrosRepository.buscarPorNomeOuISBN.mockResolvedValue(outputDTO);
 
-    const sut = buscaLivroPorNomeOuISBNUseCase({ livrosRepository });
+    const sut = buscarLivroPorNomeOuISBNUseCase({ livrosRepository });
     const output = await sut(nomeISBNDTO);
 
     expect(output.right).toEqual(outputDTO);
@@ -37,7 +37,7 @@ describe('Busca livro por nome ou ISBN usecase', function () {
     const outputDOT = [];
     livrosRepository.buscarPorNomeOuISBN.mockResolvedValue(outputDOT);
 
-    const sut = buscaLivroPorNomeOuISBNUseCase({ livrosRepository });
+    const sut = buscarLivroPorNomeOuISBNUseCase({ livrosRepository });
     const output = await sut(nomeISBNDTO);
 
     expect(output.right).toEqual(outputDOT);
@@ -48,13 +48,13 @@ describe('Busca livro por nome ou ISBN usecase', function () {
   });
 
   test('Deve retornar um throw AppError se o livrosRepository não for fornecido', async function () {
-    expect(() => buscaLivroPorNomeOuISBNUseCase({})).toThrow(
+    expect(() => buscarLivroPorNomeOuISBNUseCase({})).toThrow(
       new AppError(AppError.dependencias),
     );
   });
 
   test('Deve retornar um throw AppError se campo obrigatório não for fornecido', async function () {
-    const sut = buscaLivroPorNomeOuISBNUseCase({ livrosRepository });
+    const sut = buscarLivroPorNomeOuISBNUseCase({ livrosRepository });
     await expect(() => sut({})).rejects.toThrow(
       new AppError(AppError.parametrosObrigatoriosAusentes),
     );

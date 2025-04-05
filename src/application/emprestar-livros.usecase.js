@@ -1,7 +1,7 @@
 const { AppError, Either } = require('../shared/errors');
 
 module.exports = function emprestarLivroUseCase({ emprestimosRepository }) {
-  if (!emprestarLivroUseCase) throw new AppError(AppError.dependencias);
+  if (!emprestimosRepository) throw new AppError(AppError.dependencias);
   return async function ({ usuario_id, livro_id, data_saida, data_retorno }) {
     const checaCampos = usuario_id && livro_id && data_saida && data_retorno;
     if (!checaCampos)
