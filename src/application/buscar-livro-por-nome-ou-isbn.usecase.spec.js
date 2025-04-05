@@ -1,4 +1,5 @@
-const buscaLivroPorNomeOuISBNUsecase = require('./busca-livro-por-nome-ou-isbn.usecase');
+const { AppError } = require('../shared/errors');
+const buscaLivroPorNomeOuISBNUseCase = require('./busca-livro-por-nome-ou-isbn.usecase');
 describe('Busca livro por nome ou ISBN usecase', function () {
   const livrosRepository = {
     buscarPorNomeOuISBN: jest.fn(),
@@ -19,7 +20,7 @@ describe('Busca livro por nome ou ISBN usecase', function () {
     ];
     livrosRepository.buscarPorNomeOuISBN.mockResolvedValue(outputDTO);
 
-    const sut = buscaLivroPorNomeOuISBNUsecase({ livrosRepository });
+    const sut = buscaLivroPorNomeOuISBNUseCase({ livrosRepository });
     const output = await sut(nomeISBNDTO);
 
     expect(output.right).toEqual(outputDTO);
@@ -27,5 +28,35 @@ describe('Busca livro por nome ou ISBN usecase', function () {
       nomeISBNDTO.valor,
     );
     expect(livrosRepository.buscarPorNomeOuISBN).toHaveBeenCalledTimes(1);
+  });
+
+  test('Deve retornar um array vazio quando não encontrar livro com o nome ou ISBN informados', async function () {
+    const nomeISBNDTO = {
+      valor: 'valor_valido',
+    };
+    const outputDOT = [];
+    livrosRepository.buscarPorNomeOuISBN.mockResolvedValue(outputDOT);
+
+    const sut = buscaLivroPorNomeOuISBNUseCase({ livrosRepository });
+    const output = await sut(nomeISBNDTO);
+
+    expect(output.right).toEqual(outputDOT);
+    expect(livrosRepository.buscarPorNomeOuISBN).toHaveBeenCalledWith(
+      nomeISBNDTO.valor,
+    );
+    expect(livrosRepository.buscarPorNomeOuISBN).toHaveBeenCalledTimes(1);
+  });
+
+  test('Deve retornar um throw AppError se o livrosRepository não for fornecido', async function () {
+    expect(() => buscaLivroPorNomeOuISBNUseCase({})).toThrow(
+      new AppError(AppError.dependencias),
+    );
+  });
+
+  test('Deve retornar um throw AppError se campo obrigatório não for fornecido', async function () {
+    const sut = buscaLivroPorNomeOuISBNUseCase({ livrosRepository });
+    await expect(() => sut({})).rejects.toThrow(
+      new AppError(AppError.parametrosObrigatoriosAusentes),
+    );
   });
 });
