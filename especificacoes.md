@@ -31,7 +31,7 @@
 [x] Devolver o livro emprestado sem multa
 [x] - Caso o usuário tenha atrasado, será gerada uma multa fixa de R$ 10,00
 
-[] Mostrar todos os empréstimos pendentes, com o nome do livro, nome do usuário, CPF, data de saída e data de retorno. Ordenados pela data de retorno mais antiga
+[x] Mostrar todos os empréstimos pendentes, com o nome do livro, nome do usuário, CPF, data de saída e data de retorno. Ordenados pela data de retorno mais antiga
 
 ## Estruturas
 
@@ -53,3 +53,4 @@
 [] existeLivroEmprestadoComMesmoISBN:({ usuario_id, livro_id,}) => Promise<boolean>
 [] buscarEmprestimoComLivroComUsuarioPorID:(id) => Promise<Emprestimo & {Livro: {nome}, Usuario: {nome_completo, CPF, email}}>
 [] devolver: ({emprestimo_id, data_devolucao}) => Promise<{data_retorno}>
+[] buscarPendentesComLivroComUsuario: () =: Promise<Emprestimo: {data_saida, data_retorno & Livro: {nome}, Usuario: {nome_completo, cpf}}>
