@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "projeto-js": "file:"
+    "projeto-js": "file:",
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.22"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
