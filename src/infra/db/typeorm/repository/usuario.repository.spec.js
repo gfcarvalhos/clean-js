@@ -50,4 +50,17 @@ describe('Usuario Repository', function () {
 
     expect(existePorCpfCadastrado).toBe(false);
   });
+
+  test('Deve retornar true se usuario existir ao buscar por Email', async function () {
+    await typeormUsuarioRepository.save(usuarioDTO);
+    const existePorEmailCadastrado = await sut.existePorEmail('email_valido');
+
+    expect(existePorEmailCadastrado).toBe(true);
+  });
+
+  test('Deve retornar true se usuario existir ao buscar por Email', async function () {
+    const existePorEmailCadastrado = await sut.existePorEmail('email_valido');
+
+    expect(existePorEmailCadastrado).toBe(false);
+  });
 });
