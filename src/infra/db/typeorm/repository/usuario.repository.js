@@ -18,7 +18,17 @@ const usuarioRepository = function () {
       email,
     });
   };
-  return { cadastrar };
+
+  const buscarporCpf = async function (CPF) {
+    const usuario = await typeormUsuarioRepository.findOne({
+      where: {
+        CPF,
+      },
+    });
+
+    return usuario;
+  };
+  return { cadastrar, buscarporCpf };
 };
 
 module.exports = { usuarioRepository, typeormUsuarioRepository };
