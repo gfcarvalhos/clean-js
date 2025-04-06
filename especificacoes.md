@@ -38,8 +38,8 @@
 ## UsuariosRepository
 
 [x] cadastrar: ({nome_completo, CPF, telefone, endereco, email}) => Promise<void>
-[] buscarporCpf: (CPF) => Promise<Usuario | null>
-[] existePorCpf:(CPF) => Promise<boolean>
+[x] buscarporCpf: (CPF) => Promise<Usuario | null>
+[x] existePorCpf:(CPF) => Promise<boolean>
 [] existePorEmail:(email) => Promise<boolean>
 
 ## LivrosRepository
