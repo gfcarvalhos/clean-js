@@ -35,10 +35,28 @@ describe('Emprestimo Repository', function () {
     const emprestimoCriado = await sut.emprestar({
       usuario_id: usuario.id,
       livro_id: livro.id,
-      data_saida: new Date('2025-04-05'),
-      data_retorno: new Date('2025-04-05'),
+      data_saida: '2025-04-05',
+      data_retorno: '2025-04-05',
     });
 
     expect(emprestimoCriado).toBeUndefined();
+  });
+
+  test('Deve retornar a data de retorno salva no banco corretamente', async function () {
+    const usuario = await typeormUsuarioRepository.save(usuarioDTO);
+    const livro = await typeormLivroRepository.save(livroDTO);
+    const emprestimo = await typeormEmprestimoRepository.save({
+      usuario_id: usuario.id,
+      livro_id: livro.id,
+      data_saida: '2025-04-05',
+      data_retorno: '2025-04-05',
+    });
+
+    const devolver = await sut.devolver({
+      emprestimo_id: emprestimo.id,
+      data_devolucao: '2025-04-05',
+    });
+
+    expect(devolver.data_retorno).toBe(emprestimo.data_retorno);
   });
 });

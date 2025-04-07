@@ -50,7 +50,7 @@
 
 ## EmprestimosRepository
 
-[] emprestar: {usuario_id, livro_id, data_saida, data_retorno} => Promise<void>
+[x] emprestar: {usuario_id, livro_id, data_saida, data_retorno} => Promise<void>
 [] existeLivroEmprestadoComMesmoISBN:({ usuario_id, livro_id,}) => Promise<boolean>
 [] buscarEmprestimoComLivroComUsuarioPorID:(id) => Promise<Emprestimo & {Livro: {nome}, Usuario: {nome_completo, CPF, email}}>
 [] devolver: ({emprestimo_id, data_devolucao}) => Promise<{data_retorno}>
