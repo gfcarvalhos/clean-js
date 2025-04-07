@@ -13,7 +13,17 @@ const livroRepository = function () {
     });
   };
 
-  return { cadastrar };
+  const existePorISBN = async function (ISBN) {
+    const existeLivroPorISBN = await typeormLivroRepository.count({
+      where: {
+        ISBN,
+      },
+    });
+
+    return !!existeLivroPorISBN;
+  };
+
+  return { cadastrar, existePorISBN };
 };
 
 module.exports = { livroRepository, typeormLivroRepository };

@@ -44,8 +44,8 @@
 
 ## LivrosRepository
 
-[] cadastrar: ({ nome, quantidade, autor, genero, ISBN }) => Promdise<void>
-[] existePorISBN:(ISBN) => Promise<boolean>
+[x] cadastrar: ({ nome, quantidade, autor, genero, ISBN }) => Promdise<void>
+[x] existePorISBN:(ISBN) => Promise<boolean>
 [] buscarPorNomeOuISBN(valor) => Promise<Array<Livros>>
 
 ## EmprestimosRepository
