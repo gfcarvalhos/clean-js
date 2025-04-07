@@ -40,11 +40,11 @@
 [x] cadastrar: ({nome_completo, CPF, telefone, endereco, email}) => Promise<void>
 [x] buscarporCpf: (CPF) => Promise<Usuario | null>
 [x] existePorCpf:(CPF) => Promise<boolean>
-[] existePorEmail:(email) => Promise<boolean>
+[x] existePorEmail:(email) => Promise<boolean>
 
 ## LivrosRepository
 
-[] cadastrar: ({ nome, quantidade, autor, genero, ISBN }) => Promise<void>
+[] cadastrar: ({ nome, quantidade, autor, genero, ISBN }) => Promdise<void>
 [] existePorISBN:(ISBN) => Promise<boolean>
 [] buscarPorNomeOuISBN(valor) => Promise<Array<Livros>>
 
