@@ -30,7 +30,7 @@ module.exports = new EntitySchema({
     usuario: {
       target: 'Usuario',
       type: 'many-to-one',
-      JoinColumn: {
+      joinColumn: {
         name: 'usuario_id',
         referencedColumnName: 'id',
       },
@@ -38,7 +38,7 @@ module.exports = new EntitySchema({
     livro: {
       target: 'Livro',
       type: 'many-to-one',
-      JoinColumn: {
+      joinColumn: {
         name: 'livro_id',
         referencedColumnName: 'id',
       },

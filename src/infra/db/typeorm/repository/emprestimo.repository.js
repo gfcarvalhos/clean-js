@@ -2,7 +2,7 @@ const { typeormServer } = require('../setup');
 
 const typeormEmprestimoRepository = typeormServer.getRepository('Emprestimo');
 
-const emprestimoRepository = function () {
+const emprestimosRepository = function () {
   const emprestar = async function ({
     usuario_id,
     livro_id,
@@ -20,4 +20,4 @@ const emprestimoRepository = function () {
   return { emprestar };
 };
 
-module.exports = { emprestimoRepository, typeormEmprestimoRepository };
+module.exports = { emprestimosRepository, typeormEmprestimoRepository };

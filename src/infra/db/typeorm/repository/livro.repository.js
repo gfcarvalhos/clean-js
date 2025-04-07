@@ -3,7 +3,7 @@ const { typeormServer } = require('../setup');
 
 const typeormLivroRepository = typeormServer.getRepository('Livro');
 
-const livroRepository = function () {
+const livrosRepository = function () {
   const cadastrar = async function ({ nome, quantidade, autor, genero, ISBN }) {
     await typeormLivroRepository.save({
       nome,
@@ -35,4 +35,4 @@ const livroRepository = function () {
   return { cadastrar, existePorISBN, buscarPorNomeOuISBN };
 };
 
-module.exports = { livroRepository, typeormLivroRepository };
+module.exports = { livrosRepository, typeormLivroRepository };

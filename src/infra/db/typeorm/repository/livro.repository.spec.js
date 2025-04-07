@@ -1,5 +1,5 @@
 const {
-  livroRepository,
+  livrosRepository,
   typeormLivroRepository,
 } = require('./livro.repository');
 
@@ -17,7 +17,7 @@ describe('Livro Repository', function () {
     typeormLivroRepository.delete({});
   });
   beforeAll(function () {
-    sut = livroRepository();
+    sut = livrosRepository();
   });
   test('Deve retornar void ao criar um livro', async function () {
     const livroCriado = await sut.cadastrar(livroDTO);

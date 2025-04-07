@@ -2,7 +2,7 @@ const { typeormServer } = require('../setup');
 
 const typeormUsuarioRepository = typeormServer.getRepository('Usuario');
 
-const usuarioRepository = function () {
+const usuariosRepository = function () {
   const cadastrar = async function ({
     nome_completo,
     CPF,
@@ -49,4 +49,4 @@ const usuarioRepository = function () {
   return { cadastrar, buscarporCpf, existePorCpf, existePorEmail };
 };
 
-module.exports = { usuarioRepository, typeormUsuarioRepository };
+module.exports = { usuariosRepository, typeormUsuarioRepository };

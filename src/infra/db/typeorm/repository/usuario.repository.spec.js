@@ -1,5 +1,5 @@
 const {
-  usuarioRepository,
+  usuariosRepository,
   typeormUsuarioRepository,
 } = require('./usuario.repository');
 
@@ -9,7 +9,7 @@ describe('Usuario Repository', function () {
     await typeormUsuarioRepository.delete({});
   });
   beforeAll(function () {
-    sut = usuarioRepository();
+    sut = usuariosRepository();
   });
   const usuarioDTO = {
     nome_completo: 'nome_valido',
