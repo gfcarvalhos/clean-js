@@ -37,4 +37,20 @@ describe('Livro Repository', function () {
 
     expect(existeLivro).toBe(false);
   });
+
+  test('Deve retornar Livro a partir da busca com parametro de nome', async function () {
+    await typeormLivroRepository.save(livroDTO);
+    const livro = await sut.buscarPorNomeOuISBN('nome_valido');
+
+    expect(livro).toHaveLength(1);
+    expect(livro[0].nome).toEqual('nome_valido');
+  });
+
+  test('Deve retornar Livro a partir da busca com parametro de ISBN', async function () {
+    await typeormLivroRepository.save(livroDTO);
+    const livro = await sut.buscarPorNomeOuISBN('ISBN_valido');
+
+    expect(livro).toHaveLength(1);
+    expect(livro[0].ISBN).toEqual('ISBN_valido');
+  });
 });

@@ -1,3 +1,4 @@
+const { Like } = require('typeorm');
 const { typeormServer } = require('../setup');
 
 const typeormLivroRepository = typeormServer.getRepository('Livro');
@@ -23,7 +24,15 @@ const livroRepository = function () {
     return !!existeLivroPorISBN;
   };
 
-  return { cadastrar, existePorISBN };
+  const buscarPorNomeOuISBN = async function (valor) {
+    const buscaLivroCadastrado = await typeormLivroRepository.find({
+      where: [{ nome: Like(`%${valor}%`) }, { ISBN: valor }],
+    });
+
+    return buscaLivroCadastrado;
+  };
+
+  return { cadastrar, existePorISBN, buscarPorNomeOuISBN };
 };
 
 module.exports = { livroRepository, typeormLivroRepository };
