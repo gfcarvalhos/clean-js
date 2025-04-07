@@ -53,4 +53,10 @@ describe('Livro Repository', function () {
     expect(livro).toHaveLength(1);
     expect(livro[0].ISBN).toEqual('ISBN_valido');
   });
+
+  test('Deve retornar array vazio a partir da busca com parametro', async function () {
+    const livro = await sut.buscarPorNomeOuISBN('valor_valido');
+
+    expect(livro).toHaveLength(0);
+  });
 });
