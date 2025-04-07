@@ -16,4 +16,4 @@ const livroRepository = function () {
   return { cadastrar };
 };
 
-module.exports = { livroRepository };
+module.exports = { livroRepository, typeormLivroRepository };
