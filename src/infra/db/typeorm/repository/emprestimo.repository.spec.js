@@ -7,10 +7,10 @@ const { typeormUsuarioRepository } = require('./usuario.repository');
 
 describe('Emprestimo Repository', function () {
   let sut;
-  beforeEach(function () {
-    typeormEmprestimoRepository.delete({});
-    typeormUsuarioRepository.delete({});
-    typeormLivroRepository.delete({});
+  beforeEach(async function () {
+    await typeormEmprestimoRepository.delete({});
+    await typeormUsuarioRepository.delete({});
+    await typeormLivroRepository.delete({});
   });
   beforeAll(function () {
     sut = emprestimosRepository();
@@ -80,5 +80,35 @@ describe('Emprestimo Repository', function () {
     });
 
     expect(buscarEmprestimoPorID.data_devolucao).toBe('2025-04-05');
+  });
+
+  test('Deve retornar os emprestimos pendentes', async function () {
+    const usuario = await typeormUsuarioRepository.save(usuarioDTO);
+    const livro = await typeormLivroRepository.save(livroDTO);
+    await typeormEmprestimoRepository.save([
+      {
+        usuario_id: usuario.id,
+        livro_id: livro.id,
+        data_saida: '2025-04-05',
+        data_retorno: '2025-04-08',
+        data_devolucao: '2025-04-06',
+      },
+      {
+        usuario_id: usuario.id,
+        livro_id: livro.id,
+        data_saida: '2025-04-05',
+        data_retorno: '2025-04-10',
+      },
+    ]);
+
+    const emprestimoPendentes = await sut.buscarPendentesComLivroComUsuario();
+
+    expect(emprestimoPendentes).toHaveLength(1);
+    expect(emprestimoPendentes[0].id).toBeDefined();
+    expect(emprestimoPendentes[0].data_saida).toBe('2025-04-05');
+    expect(emprestimoPendentes[0].data_retorno).toBe('2025-04-10');
+    expect(emprestimoPendentes[0].data_devolucao).toBeUndefined();
+    expect(emprestimoPendentes[0].usuario.nome_completo).toBe('nome_valido');
+    expect(emprestimoPendentes[0].livro.nome).toBe('nome_valido');
   });
 });
