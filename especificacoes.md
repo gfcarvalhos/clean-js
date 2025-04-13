@@ -52,6 +52,6 @@
 
 [x] emprestar: {usuario_id, livro_id, data_saida, data_retorno} => Promise<void>
 [x] existeLivroEmprestadoComMesmoISBN:({ usuario_id, livro_id,}) => Promise<boolean>
-[] buscarEmprestimoComLivroComUsuarioPorID:(id) => Promise<Emprestimo & {Livro: {nome}, Usuario: {nome_completo, CPF, email}}>
+[x] buscarEmprestimoComLivroComUsuarioPorID:(id) => Promise<Emprestimo & {Livro: {nome}, Usuario: {nome_completo, CPF, email}}>
 [x] devolver: ({emprestimo_id, data_devolucao}) => Promise<{data_retorno}>
 [x] buscarPendentesComLivroComUsuario: () =: Promise<Emprestimo: {data_saida, data_retorno & Livro: {nome}, Usuario: {nome_completo, cpf}}>

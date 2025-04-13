@@ -141,4 +141,32 @@ describe('Emprestimo Repository', function () {
 
     expect(livroEmprestado).toBe(false);
   });
+
+  test('Deve retornar o emprestimo buscado pro ID com o usuario e o livro', async function () {
+    const usuario = await typeormUsuarioRepository.save(usuarioDTO);
+    const livro = await typeormLivroRepository.save(livroDTO);
+    const emprestimo = await typeormEmprestimoRepository.save({
+      usuario_id: usuario.id,
+      livro_id: livro.id,
+      data_saida: '2025-04-05',
+      data_retorno: '2025-04-05',
+    });
+
+    const buscarEmprestimoComLivroComUsuario =
+      await sut.buscarEmprestimoComLivroComUsuarioPorID(emprestimo.id);
+
+    expect(buscarEmprestimoComLivroComUsuario).toEqual({
+      id: emprestimo.id,
+      data_saida: '2025-04-05',
+      data_retorno: '2025-04-05',
+      usuario: {
+        nome_completo: 'nome_valido',
+        CPF: 'CPF_valido',
+        email: 'email_valido',
+      },
+      livro: {
+        nome: 'nome_valido',
+      },
+    });
+  });
 });

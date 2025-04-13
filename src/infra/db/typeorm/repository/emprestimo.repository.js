@@ -63,11 +63,36 @@ const emprestimosRepository = function () {
     return !!emprestimoLivro;
   };
 
+  const buscarEmprestimoComLivroComUsuarioPorID = async function (
+    emprestimo_id,
+  ) {
+    return typeormEmprestimoRepository.findOne({
+      where: {
+        id: emprestimo_id,
+      },
+      relations: ['usuario', 'livro'],
+      select: {
+        id: true,
+        data_saida: true,
+        data_retorno: true,
+        usuario: {
+          nome_completo: true,
+          CPF: true,
+          email: true,
+        },
+        livro: {
+          nome: true,
+        },
+      },
+    });
+  };
+
   return {
     emprestar,
     devolver,
     buscarPendentesComLivroComUsuario,
     existeLivroEmprestadoComMesmoISBN,
+    buscarEmprestimoComLivroComUsuarioPorID,
   };
 };
 
