@@ -31,4 +31,28 @@ describe('Cadastrar usuario Controller', function () {
       new AppError(AppError.dependencias),
     );
   });
+
+  test('Deve retornar um httpResponse 400 e error.message para falha no cadastro de usuario devido a logica do useCase', async function () {
+    cadastrarUsuarioUseCase.mockResolvedValue(
+      Either.Left({ message: 'logica_invalida' }),
+    );
+    const httpRequest = {
+      body: {
+        nome_completo: 'nome_valido',
+        CPF: 'CPF_valido',
+        telefone: 'telefone_valido',
+        endereco: 'endereco_valido',
+        email: 'email_valido',
+      },
+    };
+
+    const response = await cadastrarUsuarioController({
+      cadastrarUsuarioUseCase,
+      httpRequest,
+    });
+
+    expect(response).toEqual(httpResponse(400, 'logica_invalida'));
+    expect(cadastrarUsuarioUseCase).toHaveBeenCalledWith(httpRequest.body);
+    expect(cadastrarUsuarioUseCase).toHaveBeenCalledTimes(1);
+  });
 });
