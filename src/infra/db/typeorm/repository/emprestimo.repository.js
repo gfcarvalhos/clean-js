@@ -48,7 +48,27 @@ const emprestimosRepository = function () {
     });
   };
 
-  return { emprestar, devolver, buscarPendentesComLivroComUsuario };
+  const existeLivroEmprestadoComMesmoISBN = async function ({
+    usuario_id,
+    livro_id,
+  }) {
+    const emprestimoLivro = await typeormEmprestimoRepository.count({
+      where: {
+        data_devolucao: IsNull(),
+        livro_id,
+        usuario_id,
+      },
+    });
+
+    return !!emprestimoLivro;
+  };
+
+  return {
+    emprestar,
+    devolver,
+    buscarPendentesComLivroComUsuario,
+    existeLivroEmprestadoComMesmoISBN,
+  };
 };
 
 module.exports = { emprestimosRepository, typeormEmprestimoRepository };

@@ -111,4 +111,34 @@ describe('Emprestimo Repository', function () {
     expect(emprestimoPendentes[0].usuario.nome_completo).toBe('nome_valido');
     expect(emprestimoPendentes[0].livro.nome).toBe('nome_valido');
   });
+
+  test('Retorna true para livro ja emprestado ao usuario com o mesmo ISBN', async function () {
+    const usuario = await typeormUsuarioRepository.save(usuarioDTO);
+    const livro = await typeormLivroRepository.save(livroDTO);
+    await typeormEmprestimoRepository.save({
+      usuario_id: usuario.id,
+      livro_id: livro.id,
+      data_saida: '2025-04-05',
+      data_retorno: '2025-04-05',
+    });
+
+    const livroEmprestado = await sut.existeLivroEmprestadoComMesmoISBN({
+      usuario_id: usuario.id,
+      livro_id: livro.id,
+    });
+
+    expect(livroEmprestado).toBe(true);
+  });
+
+  test('Retorna false para existência de livro emprestado ao usuario com o mesmo ISBN', async function () {
+    const usuario = await typeormUsuarioRepository.save(usuarioDTO);
+    const livro = await typeormLivroRepository.save(livroDTO);
+
+    const livroEmprestado = await sut.existeLivroEmprestadoComMesmoISBN({
+      usuario_id: usuario.id,
+      livro_id: livro.id,
+    });
+
+    expect(livroEmprestado).toBe(false);
+  });
 });
