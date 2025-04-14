@@ -1,4 +1,5 @@
-const { Either } = require('../../shared/errors');
+const { ZodError } = require('zod');
+const { Either, AppError } = require('../../shared/errors');
 const httpResponse = require('../../shared/helpers/http.response');
 const buscarUsuarioPorCpfController = require('./buscar-usuario-por-cpf.controller');
 
@@ -49,5 +50,24 @@ describe('Buscar usuario por cpf Controller', function () {
     expect(response).toEqual(httpResponse(200, null));
     expect(buscarUsuarioPorCPFUseCase).toHaveBeenCalledWith(httpRequest.params);
     expect(buscarUsuarioPorCPFUseCase).toHaveBeenCalledTimes(1);
+  });
+
+  test('Deve retornar um throw AppError se o buscarUsuarioPorCPFUseCase e httpRequest não forem fornecidos', async function () {
+    await expect(() => buscarUsuarioPorCpfController({})).rejects.toThrow(
+      new AppError(AppError.dependencias),
+    );
+  });
+
+  test('Deve retornar um erro do zod validator se der erro na validação dos dados', async function () {
+    const httpRequest = {
+      params: {},
+    };
+
+    expect(() =>
+      buscarUsuarioPorCpfController({
+        buscarUsuarioPorCPFUseCase,
+        httpRequest,
+      }),
+    ).rejects.toBeInstanceOf(ZodError);
   });
 });
