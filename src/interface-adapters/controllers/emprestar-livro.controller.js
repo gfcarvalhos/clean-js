@@ -1,5 +1,6 @@
 const { z } = require('zod');
 const httpResponse = require('../../shared/helpers/http.response');
+const { AppError } = require('../../shared/errors');
 
 const zodValidator = z.object({
   livro_id: z.number({
@@ -19,6 +20,8 @@ module.exports = async function emprestarLivroController({
   emprestarLivroUseCase,
   httpRequest,
 }) {
+  if (!emprestarLivroUseCase || !httpRequest || !httpRequest.body)
+    throw new AppError(AppError.dependencias);
   const { livro_id, usuario_id, data_saida, data_retorno } = zodValidator.parse(
     httpRequest.body,
   );
