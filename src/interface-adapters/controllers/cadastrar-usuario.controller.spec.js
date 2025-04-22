@@ -62,7 +62,7 @@ describe('Cadastrar usuario Controller', function () {
       body: {},
     };
 
-    expect(() =>
+    await expect(() =>
       cadastrarUsuarioController({ cadastrarUsuarioUseCase, httpRequest }),
     ).rejects.toBeInstanceOf(ZodError);
   });

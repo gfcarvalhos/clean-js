@@ -62,7 +62,7 @@ describe('Cadastrar livro Controller', function () {
       body: {},
     };
 
-    expect(() =>
+    await expect(() =>
       cadastrarLivroController({ cadastrarLivroUseCase, httpRequest }),
     ).rejects.toBeInstanceOf(ZodError);
   });

@@ -67,12 +67,12 @@ describe('Emprestar livro Controller', function () {
     );
   });
 
-  test('Deve retornar um erro do zodValidator se der erro na validação', function () {
+  test('Deve retornar um erro do zodValidator se der erro na validação', async function () {
     const httpRequest = {
       body: {},
     };
 
-    expect(() =>
+    await expect(() =>
       emprestarLivroController({
         emprestarLivroUseCase,
         httpRequest,

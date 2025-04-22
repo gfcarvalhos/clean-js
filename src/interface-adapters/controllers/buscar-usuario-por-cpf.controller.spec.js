@@ -63,7 +63,7 @@ describe('Buscar usuario por cpf Controller', function () {
       params: {},
     };
 
-    expect(() =>
+    await expect(() =>
       buscarUsuarioPorCpfController({
         buscarUsuarioPorCPFUseCase,
         httpRequest,
