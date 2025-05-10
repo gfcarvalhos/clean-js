@@ -9,7 +9,6 @@ usuariosRoutes.post('/', async (request, response) => {
     body: request.body,
   };
   const { statusCode, body } = await cadastrarUsuarioComposer(httpRequest);
-
   return response.status(statusCode).json(body);
 });
 
@@ -19,7 +18,6 @@ usuariosRoutes.get('/cpf/:CPF', async (request, response) => {
   };
 
   const { statusCode, body } = await buscarUsuarioPorCpfComposer(httpRequest);
-
   return response.status(statusCode).json(body);
 });
 
