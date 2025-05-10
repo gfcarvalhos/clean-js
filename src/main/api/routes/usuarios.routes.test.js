@@ -61,4 +61,13 @@ describe('Usuarios Routes', function () {
     expect(statusCode).toBe(200);
     expect(body).toBeNull();
   });
+
+  test('Deve verificar se o cpf foi passado correnamento para o params', async function () {
+    const { statusCode, body } = await request(app).get('/usuarios/cpf/1');
+
+    expect(statusCode).toBe(400);
+    expect(body.erros.fieldErrors).toEqual({
+      CPF: ['CPF inválido'],
+    });
+  });
 });
