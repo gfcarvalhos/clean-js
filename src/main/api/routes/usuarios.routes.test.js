@@ -52,4 +52,13 @@ describe('Usuarios Routes', function () {
     expect(statusCode).toBe(200);
     expect(body).toEqual(expect.objectContaining(usuarioDTO));
   });
+
+  test('Deve retornar null para usuario inexistente', async function () {
+    const { statusCode, body } = await request(app).get(
+      '/usuarios/cpf/123.123.123-12',
+    );
+
+    expect(statusCode).toBe(200);
+    expect(body).toBeNull();
+  });
 });
