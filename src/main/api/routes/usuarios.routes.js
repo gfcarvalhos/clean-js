@@ -11,3 +11,5 @@ usuariosRoutes.post('/', async (request, response) => {
 
   return response.status(statusCode).json(body);
 });
+
+module.exports = { usuariosRoutes };

@@ -4,7 +4,7 @@ const {
 } = require('../../../infra/db/typeorm/repository/usuario.repository');
 const cadastrarUsuarioController = require('../../../interface-adapters/controllers/cadastrar-usuario.controller');
 
-module.exports = async function cadastrarUsuarioCompose(httpRequest) {
+module.exports = async function cadastrarUsuarioComposer(httpRequest) {
   const usuarioRepositorioFn = usuariosRepository();
   const cadastrarUsuariosUsecaseFn = cadastrarUsuarioUsecase({
     usuariosRepository: usuarioRepositorioFn,
