@@ -10,7 +10,7 @@ describe('Cadastrar livro Controller', function () {
     const httpRequest = {
       body: {
         nome: 'nome_valido',
-        quantidade: 'quantidade_valida',
+        quantidade: 1,
         autor: 'autor_valido',
         genero: 'genero_valido',
         ISBN: 'ISBN_valido',
@@ -40,7 +40,7 @@ describe('Cadastrar livro Controller', function () {
     const httpRequest = {
       body: {
         nome: 'nome_valido',
-        quantidade: 'quantidade_valida',
+        quantidade: 2,
         autor: 'autor_valido',
         genero: 'genero_valido',
         ISBN: 'ISBN_valido',

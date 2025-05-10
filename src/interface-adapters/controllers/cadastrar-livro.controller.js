@@ -6,7 +6,7 @@ const zodValidator = z.object({
   nome: z.string({
     required_error: 'Nome é obrigatório',
   }),
-  quantidade: z.string({
+  quantidade: z.number({
     required_error: 'Quantidade é obrigatório',
   }),
   autor: z.string({
