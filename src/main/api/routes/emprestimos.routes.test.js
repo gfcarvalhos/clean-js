@@ -98,4 +98,44 @@ describe('Emprestimos Routes', function () {
       data_devolucao: ['Data devolução é obrigatória'],
     });
   });
+
+  test('Deve retornar os empréstimos pendentes', async function () {
+    const livro = await typeormLivroRepository.save(livroDTO);
+    const usuario = await typeormUsuarioRepository.save(usuarioDTO);
+    await typeormEmprestimoRepository.save([
+      {
+        livro_id: livro.id,
+        usuario_id: usuario.id,
+        nome_usuario: usuario.nome_completo,
+        data_saida: '2025-05-10',
+        data_retorno: '2025-06-10',
+        data_devolucao: '2025-06-07',
+      },
+      {
+        livro_id: livro.id,
+        usuario_id: usuario.id,
+        nome_usuario: usuario.nome_completo,
+        data_saida: '2025-05-12',
+        data_retorno: '2025-06-12',
+      },
+    ]);
+
+    const { statusCode, body } = await request(app).get(`/emprestimos`);
+
+    expect(statusCode).toBe(200);
+    expect(body).toHaveLength(1);
+    expect(body[0]).toEqual(
+      expect.objectContaining({
+        data_retorno: '2025-06-12',
+        data_saida: '2025-05-12',
+        livro: {
+          nome: 'qualquer_nome',
+        },
+        usuario: {
+          CPF: '123.123.123-12',
+          nome_completo: 'nome_valido',
+        },
+      }),
+    );
+  });
 });
