@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const cadastrarLivroComposer = require('../composers/cadastrar-livro.composer');
-const buscarLivroPorNomeOuIsbnComposer = require('../composers/buscar-livro-por-nome-ou-isbn.composer');
+const buscarLivroPorNomeOuIsbnComposer = require('../composers/busca-livro-por-nome-ou-isbn.composer');
 
 const livroRoutes = Router();
 

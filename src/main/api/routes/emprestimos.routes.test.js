@@ -35,6 +35,7 @@ describe('Emprestimos Routes', function () {
     const { statusCode, body } = await request(app).post('/emprestimos').send({
       livro_id: livro.id,
       usuario_id: usuario.id,
+      nome_usuario: usuario.nome_completo,
       data_saida: '2025-05-10',
       data_retorno: '2025-06-10',
     });

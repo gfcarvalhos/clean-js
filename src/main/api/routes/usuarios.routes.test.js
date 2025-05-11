@@ -3,9 +3,13 @@ const { app } = require('../app');
 const {
   typeormUsuarioRepository,
 } = require('../../../infra/db/typeorm/repository/usuario.repository');
+const {
+  typeormEmprestimoRepository,
+} = require('../../../infra/db/typeorm/repository/emprestimo.repository');
 
 describe('Usuarios Routes', function () {
   beforeEach(async function () {
+    await typeormEmprestimoRepository.query('DELETE FROM emprestimos');
     await typeormUsuarioRepository.query('DELETE FROM usuarios');
   });
   test('Deve ser possível cadastar um usuário', async function () {
