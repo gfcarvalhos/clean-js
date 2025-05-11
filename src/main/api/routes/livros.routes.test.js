@@ -81,4 +81,14 @@ describe('Livros Route', function () {
     expect(statusCode).toBe(200);
     expect(body).toHaveLength(0);
   });
+
+  test('Deve retornar um erro se o campo obrigatório não for fornecido', async function () {
+    const { statusCode, body } = await request(app).get('/livros');
+
+    expect(statusCode).toBe(400);
+    expect(body.message).toBe('Erro na validação');
+    expect(body.erros.fieldErrors).toEqual({
+      valor: ['Valor é obrigatório'],
+    });
+  });
 });
