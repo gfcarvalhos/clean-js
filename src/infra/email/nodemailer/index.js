@@ -16,19 +16,11 @@ module.exports = function nodemailerService() {
         pass: '119bbfb583f1d8',
       },
     });
-
-    const data_saida_BR = data_saida.toLocaleDateString('pt-BR', {
-      timeZone: 'UTC',
-    });
-    const data_retorno_BR = data_retorno.toLocaleDateString('pt-BR', {
-      timeZone: 'UTC',
-    });
-
     await transporter.sendMail({
       from: '"Biblioteca UNI" <contato@uni.com>',
       to: email,
       subject: 'Novo livro emprestado',
-      text: `Olá ${nome_usuario} (${CPF}), \nVocê pegou o livro '${nome_livro}' emprestado dia ${data_saida_BR} e deverá devolver dia ${data_retorno_BR}. \nBoa Leitura!`,
+      text: `Olá ${nome_usuario} (${CPF}), \nVocê pegou o livro '${nome_livro}' emprestado dia ${data_saida} e deverá devolver dia ${data_retorno}. \nBoa Leitura!`,
     });
   };
 
