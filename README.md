@@ -99,7 +99,8 @@ O projeto segue os princípios da **Clean Architecture**:
 - **TypeORM** (SQLite/PostgreSQL)
 - **Zod** (validações)
 - **Nodemailer** (e-mails)
-- **Bull** + **Bull Board** (filas de envio)
+- **Postgres** (banco de dados)
+- **Bull** + **Bull Board** + **Redis** (filas de envio)
 - **Jest** + **Supertest** (testes unitários e de integração)
 - **dotenv**, **cross-env**
 
@@ -122,12 +123,20 @@ npm run test:integration
 
 ## 🚀 Como rodar o projeto localmente
 
+I. Subir o container com a imagem do banco (Postgres) e Redis (necessário para a lib bull)
+
+II. Instalar dependencias e subir o servidor da aplicação:
+
 ```bash
 npm install
 npm run dev
 ```
 
-Em outro terminal rodar servidor redis
+Em outro terminal rodar servidor redis:
+
+```bash
+node ./src/main/api/queue
+```
 
 ---
 
