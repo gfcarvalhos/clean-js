@@ -55,3 +55,11 @@
 [x] buscarEmprestimoComLivroComUsuarioPorID:(id) => Promise<Emprestimo & {Livro: {nome}, Usuario: {nome_completo, CPF, email}}>
 [x] devolver: ({emprestimo_id, data_devolucao}) => Promise<{data_retorno}>
 [x] buscarPendentesComLivroComUsuario: () =: Promise<Emprestimo: {data_saida, data_retorno & Livro: {nome}, Usuario: {nome_completo, cpf}}>
+
+## Versao 2
+
+- Quantidade não pode ser menor que 0 ao cadastrar um livro
+- Poder editar um livro
+- Poder editar um usuário
+- Não permitir que um empréstimo já devolvido seja devolvido de novo
+- Checar se ao devolver, a data de devolução não é menor que a data de retorno
