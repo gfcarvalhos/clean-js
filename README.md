@@ -132,7 +132,7 @@ npm install
 npm run dev
 ```
 
-Em outro terminal rodar servidor redis:
+III. Em outro terminal rodar servidor redis:
 
 ```bash
 node ./src/main/api/queue
